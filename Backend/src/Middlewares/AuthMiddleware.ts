@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { ComparePassword, VerifyToken } from "../utils/services";
+import { type JwtPayload } from "jsonwebtoken";
 
 export interface AdminReq extends Request {
   id: string;
@@ -15,12 +16,14 @@ export function AuthMiddleware(
   if (!token) {
     return res.status(404).json({ error: "token missing " });
   }
-  const decode = VerifyToken(token);
+  const decode = VerifyToken(token) as JwtPayload;
 
   if (!decode) {
     return res.status(401).json({ error: "Not a valid Token || Unauthorized" });
   }
 
-  (req as AdminReq).id =decode.userId;
-  (req as AdminReq).role =decode.role;
+  (req as AdminReq).id = decode.userId;
+  (req as AdminReq).role = decode.role;
+
+  next();
 }

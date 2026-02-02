@@ -46,11 +46,11 @@ model user {
 model problem {
   id String @id @default(uuid())
   title String
-  decription String
+  description String
   difficulty DIFFICULTY
   tags String[]
-  timeLimit Float
-  memoryLimit Float
+  timeLimit Int
+  memoryLimit Int
   createdBy user @relation(fields: [userId],references: [id])
   userId String
   createdAt DateTime @default(now())
@@ -98,8 +98,8 @@ model submission {
   language LANGUAGE
   codePath String
   status STATUS @default(PENDING)
-  runtime Int
-  memory Int
+  runtime Int?
+  memory Int?
   createdAt DateTime @default(now())
   submission_result submission_result[]
 }
@@ -115,8 +115,8 @@ model submission_result {
     user_output String?
     stdout String?
     stderr String?
-    time_ms Float?
-    memory_kb Float?
+    time_ms Int?
+    memory_kb Int?
     verdict STATUS
     createdAt DateTime @default(now())
 }

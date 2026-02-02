@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { problems, signin, signup } from "../types/types";
+import { problems, signin, signup, testcases } from "../types/types";
 import crypto from "crypto";
 import { prisma } from "../config/db";
 import {
@@ -7,6 +7,8 @@ import {
   GenerateToken,
   HashPassword,
 } from "../utils/services";
+import type { AdminReq } from "../Middlewares/AuthMiddleware";
+import { UploadTest } from "../modules/Supabase/uploadFile";
 
 export const Signup = async (req: Request, res: Response) => {
   const { success, data, error } = signup.safeParse(req.body);
@@ -85,7 +87,7 @@ export const Signin = async (req: Request, res: Response) => {
       .update(refresh)
       .digest("hex");
 
-      await prisma.refreshToken.deleteMany({ where : {userId :user.id}});
+    await prisma.refreshToken.deleteMany({ where: { userId: user.id } });
     await prisma.refreshToken.create({
       data: {
         userId: user.id,
@@ -115,5 +117,106 @@ export const Signin = async (req: Request, res: Response) => {
 
 export const Problems = async (req: Request, res: Response) => {
   const { success, data, error } = problems.safeParse(req.body);
-  res.cookie;
+  if (!success) {
+    return res.status(400).json({
+      success: false,
+      error: "Invalid Input",
+    });
+  }
+
+  try {
+    await prisma.problem.create({
+      data: {
+        title: data.title,
+        description: data.description,
+        difficulty: data.difficulty,
+        tags: data.tags,
+        timeLimit: data.timeLimit,
+        memoryLimit: data.memoryLimit,
+        userId: (req as AdminReq).id,
+      },
+    });
+
+    res.status(201).json({ success: true, message: "Problem uploaded" });
+  } catch (e) {
+    res.status(500).json({ error: "Internal Error " });
+  }
+  // res.cookie;
 };
+
+export const visibleTestcases = async (req: Request, res: Response) => {
+  const problemId = <string>req.params.problemId; // or as string
+  const { success, data, error } = testcases.safeParse(req.body);
+  if (!success) {
+    return res.status(400).json({
+      success: false,
+      error: "Invalid Input",
+    });
+  }
+  try {
+    const prob = await prisma.problem.findFirst({
+      where: { id: problemId, userId: (req as AdminReq).id },
+    });
+    if (!prob) {
+      return res.status(404).json({ message: "You dont have problem created" });
+    }
+    const test = await prisma.visible_testcases.findMany({
+      where: { problemId: problemId },
+    });
+    const len = test.length;
+    const inputfilepath = `VisibleTestCase/INPUT/file${len + 1}`;
+    const outputfilepath = `VisibleTestCase/OUTPUT/file${len + 1}`;
+    await UploadTest(inputfilepath, data.input);
+    await UploadTest(outputfilepath, data.output);
+    await prisma.visible_testcases.create({
+      data: {
+        inputPath: inputfilepath,
+        outputPath: outputfilepath,
+        problemId,
+      },
+    });
+    res.send("done");
+  } catch (e) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const hiddenTestcases = async (req: Request, res: Response) => {
+  const problemId = <string>req.params.problemId; // or as string
+  const { success, data, error } = testcases.safeParse(req.body);
+  if (!success) {
+    return res.status(400).json({
+      success: false,
+      error: "Invalid Input",
+    });
+  }
+  try {
+    const prob = await prisma.problem.findFirst({
+      where: { id: problemId, userId: (req as AdminReq).id },
+    });
+    if (!prob) {
+      return res.status(404).json({ message: "You dont have problem created" });
+    }
+    const test = await prisma.hidden_testcases.findMany({
+      where: { problemId: problemId },
+    });
+    const len = test.length;
+    const inputfilepath = `HiddenTestCase/INPUT/file${len + 1}`;
+    const outputfilepath = `HiddenTestCase/OUTPUT/file${len + 1}`;
+    await UploadTest(inputfilepath, data.input);
+    await UploadTest(outputfilepath, data.output);
+    await prisma.hidden_testcases.create({
+      data: {
+        inputPath: inputfilepath,
+        outputPath: outputfilepath,
+        problemId,
+      },
+    });
+    res.send("done");
+  } catch (e) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+ 

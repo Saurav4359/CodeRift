@@ -7,19 +7,27 @@ export const signup = z.object({
   role: z.enum(["USER", "ADMIN"]),
 });
 
+export const signin = z.object({
+  email: z.email(),
+  password: z.string(),
+});
 
-export const signin= z.object({
-    email : z.email(),
-    password : z.string()
-})
+export const problems = z.object({
+  title: z.string(),
+  description: z.string(),
+  difficulty: z.enum(["EASY", "MEDIUM", "HARD"]),
+  tags: z.array(z.string()),
+  timeLimit: z.float64(),
+  memoryLimit: z.float64(),
+});
+
+export const testcases = z.object({
+  input: z.string(),
+  output: z.string(),
+});
 
 
-export const problems= z.object({
-    title : z.string(),
-    description : z.string(),
-    difficulty : z.enum(["EASY","MEDIUM","HARD"]),
-    tags : z.array(z.string()),
-    timeLimit : z.float64(),
-    memoryLimit: z.float64(),
-    
+export const submissiontype=z.object({
+    language : z.enum(["java","python","cpp"]),
+    code : z.string(),
 })

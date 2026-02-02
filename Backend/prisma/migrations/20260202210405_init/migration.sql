@@ -37,11 +37,11 @@ CREATE TABLE "RefreshToken" (
 CREATE TABLE "problem" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "decription" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "difficulty" "DIFFICULTY" NOT NULL,
     "tags" TEXT[],
-    "timeLimit" DOUBLE PRECISION NOT NULL,
-    "memoryLimit" DOUBLE PRECISION NOT NULL,
+    "timeLimit" INTEGER NOT NULL,
+    "memoryLimit" INTEGER NOT NULL,
     "userId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -78,8 +78,8 @@ CREATE TABLE "submission" (
     "language" "LANGUAGE" NOT NULL,
     "codePath" TEXT NOT NULL,
     "status" "STATUS" NOT NULL DEFAULT 'PENDING',
-    "runtime" INTEGER NOT NULL,
-    "memory" INTEGER NOT NULL,
+    "runtime" INTEGER,
+    "memory" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "submission_pkey" PRIMARY KEY ("id")
@@ -96,8 +96,8 @@ CREATE TABLE "submission_result" (
     "user_output" TEXT,
     "stdout" TEXT,
     "stderr" TEXT,
-    "time_ms" DOUBLE PRECISION,
-    "memory_kb" DOUBLE PRECISION,
+    "time_ms" INTEGER,
+    "memory_kb" INTEGER,
     "verdict" "STATUS" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
