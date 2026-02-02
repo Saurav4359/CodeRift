@@ -27,14 +27,22 @@ enum DIFFICULTY {
 model user {
   id String @id @default(uuid())
   name String   
-  email String
+  email String @unique
   password String
   role ROLE
   createdAt DateTime @default(now())
   problems problem[]
   submission submission[]
+  refreshtoken RefreshToken[]
 }
-
+ model RefreshToken {
+  id String @id @default(uuid())
+  userId String
+  user user @relation(fields: [userId],references: [id])
+  role ROLE
+  token String
+  expiresAt DateTime
+ }
 model problem {
   id String @id @default(uuid())
   title String
