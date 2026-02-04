@@ -1,5 +1,11 @@
 import type { Request, Response } from "express";
-import { problems, signin, signup, testcases } from "../types/types";
+import {
+  problems,
+  signin,
+  signup,
+  submissiontype,
+  testcases,
+} from "../types/types";
 import crypto from "crypto";
 import { prisma } from "../config/db";
 import {
@@ -9,6 +15,8 @@ import {
 } from "../utils/services";
 import type { AdminReq } from "../Middlewares/AuthMiddleware";
 import { UploadTest } from "../modules/Supabase/uploadFile";
+import { submitCode } from "../modules/judge/execution";
+import { AddQueue } from "../modules/queue/queue";
 
 export const Signup = async (req: Request, res: Response) => {
   const { success, data, error } = signup.safeParse(req.body);
@@ -218,5 +226,26 @@ export const hiddenTestcases = async (req: Request, res: Response) => {
   }
 };
 
+export const submission = async (req: Request, res: Response) => {
+  const problemId = <string>req.params.problemId; // or as string
+  const { success, data, error } = submissiontype.safeParse(req.body);
+  if (!success) {
+    return res.status(400).json({
+      success: false,
+      error: "Invalid Input",
+    });
+  }
+  try {
+    await AddQueue({
+      userId: (req as AdminReq).id,
+      language_id: data.language_id,
+      stdin: "",
+      source_code: data.code,
+      problem_id: problemId,
+    });
+  } catch (e) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 
- 
+export const submission_result = async (req: Request, res: Response) => {};

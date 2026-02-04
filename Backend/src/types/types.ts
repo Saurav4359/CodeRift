@@ -28,6 +28,7 @@ export const testcases = z.object({
 
 
 export const submissiontype=z.object({
-    language : z.enum(["java","python","cpp"]),
+    language_id : z.string(),
     code : z.string(),
 })
+
