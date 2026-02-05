@@ -7,5 +7,5 @@ export const DownloadFile = async (path: string) => {
   return data?.text();
 };
 
-const result = await DownloadFile("VisibleTestCase/OUTPUT/file1");
-console.log(result);
+// const result = await DownloadFile("VisibleTestCase/OUTPUT/file1");
+// console.log(result);

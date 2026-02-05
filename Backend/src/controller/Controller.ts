@@ -172,8 +172,8 @@ export const visibleTestcases = async (req: Request, res: Response) => {
       where: { problemId: problemId },
     });
     const len = test.length;
-    const inputfilepath = `VisibleTestCase/INPUT/file${len + 1}`;
-    const outputfilepath = `VisibleTestCase/OUTPUT/file${len + 1}`;
+    const inputfilepath = `VisibleTestCase/INPUT/${problemId}file${len + 1}`;
+    const outputfilepath = `VisibleTestCase/OUTPUT/${problemId}file${len + 1}`;
     await UploadTest(inputfilepath, data.input);
     await UploadTest(outputfilepath, data.output);
     await prisma.visible_testcases.create({
@@ -209,8 +209,8 @@ export const hiddenTestcases = async (req: Request, res: Response) => {
       where: { problemId: problemId },
     });
     const len = test.length;
-    const inputfilepath = `HiddenTestCase/INPUT/file${len + 1}`;
-    const outputfilepath = `HiddenTestCase/OUTPUT/file${len + 1}`;
+    const inputfilepath = `HiddenTestCase/INPUT/${problemId}file${len + 1}`;
+    const outputfilepath = `HiddenTestCase/OUTPUT/${problemId}file${len + 1}`;
     await UploadTest(inputfilepath, data.input);
     await UploadTest(outputfilepath, data.output);
     await prisma.hidden_testcases.create({
@@ -241,11 +241,16 @@ export const submission = async (req: Request, res: Response) => {
       language_id: data.language_id,
       stdin: "",
       source_code: data.code,
-      problem_id: problemId,
+      problemId: problemId,
     });
+    res.json({
+      message : "Code Submitted"
+    })
   } catch (e) {
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const submission_result = async (req: Request, res: Response) => {};
+
+

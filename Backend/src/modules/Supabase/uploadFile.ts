@@ -14,5 +14,3 @@ export const UploadTest = async (path: string, value: string) => {
     return;
   }
 };
-
- 

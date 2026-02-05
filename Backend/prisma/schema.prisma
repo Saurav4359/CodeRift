@@ -96,7 +96,7 @@ model submission {
   problem problem @relation(fields: [problemId],references: [id])
   problemId String
   language LANGUAGE
-  codePath String
+  sourceCode String
   status STATUS @default(PENDING)
   runtime Int?
   memory Int?

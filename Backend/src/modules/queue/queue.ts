@@ -11,10 +11,10 @@ export interface job {
   language_id: string;
   source_code: string;
   stdin: string;
-  problem_id: string;
+  problemId: string;
 }
 export async function AddQueue(data: job) {
-  await queue.add(`${data.problem_id}`, data);
+  await queue.add(`${data.problemId}`, data);
   console.log("Job added to queue");
   await queue.close();
 }
