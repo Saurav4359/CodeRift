@@ -6,7 +6,7 @@ export function Layout() {
     <>
       <NavBar />
       <Outlet/>
-      <Footer />
+    
     </>
   );
 }

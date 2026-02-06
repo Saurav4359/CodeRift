@@ -2,10 +2,8 @@ import "./App.css";
 // import { CodeEditor } from "../pages/Editor";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "../pages/Layout";
-import { Signup } from "../Components/Signup";
 import { Section, Auth } from "../Components/section";
 import { Problem } from "../Components/problem";
-import { createContext, useState } from "react";
 
 // import { useRef, useState } from "react";
 
