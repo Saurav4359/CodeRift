@@ -7,7 +7,7 @@ export function NavBar() {
       <Link to="/">
         <div className="ml-40  h-16 w-70 font-semibold flex justify-center items-center text-3xl subpixel-antialiased  tracking-tighter   gap-2  hover:cursor-pointer">
           CodeRift
-          <span className="mt-1 h-4 w-4 bg-black  animate-spin "></span>
+          <span className="mt-1 h-4 w-4 bg-black  animate-spin"></span>
         </div>
       </Link>
       <div className=" mr-20 h-14 w-180 flex justify-center items-center gap-5 mt-1">
@@ -22,9 +22,11 @@ export function NavBar() {
             Problem
           </div>
         </Link>
-        <div className="text-l font-medium hover:cursor-pointer h-8 w-22 rounded-2xl flex justify-center items-center hover:bg-black hover:text-white hover:transition delay-75 duration-100 ease-in">
-          Contests
-        </div>
+        <Link to="/contest">
+          <div className="text-l font-medium hover:cursor-pointer h-8 w-22 rounded-2xl flex justify-center items-center hover:bg-black hover:text-white hover:transition delay-75 duration-100 ease-in">
+            Contests
+          </div>
+        </Link>
         <Link to="/signup">
           <div className="text-l font-medium hover:cursor-pointer h-8 w-20 rounded-2xl flex justify-center items-center hover:bg-black hover:text-white hover:transition delay-75 duration-100 ease-in">
             SignIn

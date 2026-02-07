@@ -3,7 +3,9 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "../pages/Layout";
 import { Section, Auth } from "../Components/section";
-import { Problem } from "../Components/problem";
+import { Problem } from "../Components/Allproblem";
+import { Submission } from "../Components/Submission";
+import { Contest } from "../pages/contest";
 
 // import { useRef, useState } from "react";
 
@@ -14,10 +16,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Section />} />
-             <Route path="/problems" element={<Problem />} />
+            <Route path="/problems" element={<Problem />} />
             <Route path="/signup" element={<Auth />} />
+            <Route path="/submission/:problemId" element={<Submission />} />
+            <Route path="/contest" element={<Contest />} />
           </Route>
-          
+
         </Routes>
       </BrowserRouter>
     </>

@@ -1,16 +1,15 @@
 import { Search } from "../icons/search";
-import { ProblemBar } from "../Components/Problembar";
+import { ProblemBar } from "./Problembar";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 interface probDetails {
   index: number;
   title: string;
-  description: string;
   tags: string[];
   difficulty: "EASY" | "MEDIUM" | "HARD";
-  timeLimit: number;
-  memoryLimit: number;
+  id: string;
 }
 export function Problem() {
   const [problems, setProblems] = useState<probDetails[] | []>([]);
@@ -40,12 +39,14 @@ export function Problem() {
           </div>
           <div className="grid justify-center gap-3">
             {problems.map((problem, index) => (
-              <ProblemBar
-                 index={index}
-                title={problem.title}
-                difficulty={problem.difficulty}
-                tags={problem.tags}
-              />
+              <Link to={`/submission/${problem.id}`}>
+                <ProblemBar
+                  index={index}
+                  title={problem.title}
+                  difficulty={problem.difficulty}
+                  tags={problem.tags}
+                />
+              </Link>
             ))}
           </div>
         </div>

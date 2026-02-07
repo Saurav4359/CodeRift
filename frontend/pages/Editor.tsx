@@ -8,8 +8,8 @@ export function CodeEditor({ language }: { language: string }) {
   return (
     <Editor
       key={language}
-      className="bg-black "
-      height="600px"
+      className="bg-black border-white/40 border-2 rounded-b"
+      height="620px"
       width="600px"
       defaultLanguage={language}
       defaultValue={path[language as keyof typeof path]}
