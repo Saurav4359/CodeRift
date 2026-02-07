@@ -1,12 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
-export function Option({ setRef }: any) {
+ 
+
+export function Option({ setRef }: {setRef : (value : string)=> void}) {
   const langRef = useRef<HTMLSelectElement | null>(null);
   if (langRef.current) setRef(langRef.current.value);
   return (
     <>
       <select
         onChange={() => {
+          if(langRef.current)
           setRef(langRef.current?.value);
         }}
         ref={langRef}
