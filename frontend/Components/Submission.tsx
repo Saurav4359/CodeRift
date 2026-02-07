@@ -1,7 +1,7 @@
 import { Option } from "../Components/options";
 import { ProblemDescription } from "../Components/ProblemDescription";
 import { CodeEditor } from "../pages/Editor";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -26,6 +26,7 @@ const languageId = {
 };
 export function Submission() {
   const { problemId } = useParams();
+  const [submit, setSubmit] = useState(false);
   const [ref, setRef] = useState("");
   const [sourceCode, setSourceCode] = useState("");
   const [data, setData] = useState<probDetails | null>(null);
@@ -38,9 +39,18 @@ export function Submission() {
     }
 
     getResult();
-
   }, []);
-  
+  function submitCode() {
+    if (!sourceCode || !sourceCode.trim()) {
+      alert("Write your code");
+      setSubmit(false);
+      return;
+    }
+
+    setSubmit(true);
+    console.log(sourceCode);
+  }
+
   if (!data)
     return (
       <div className="  h-screen w-screen flex justify-center items-center">
@@ -69,13 +79,19 @@ export function Submission() {
                   <Option setRef={setRef} />
                 </div>
                 <div className="  w-25 h-10 flex justify-center items-center ">
-                  <button onClick={()=> { JSON.stringify(setSourceCode(sourceCode));
-                    console.log(sourceCode)}} className="border border-white/40 rounded-xl  w-20 h-8 hover:h-9 hover:w-22 hover:transition delay-100 duration-100 ease-in-out hover:cursor-pointer bg-red-600">
-                    Submit
+                  <button
+                    onClick={submitCode}
+                    className="border border-white/40 rounded-xl  w-20 h-8 hover:h-9 hover:w-22 hover:transition delay-100 duration-100 ease-in-out hover:cursor-pointer bg-red-600"
+                  >
+                    {submit ? (
+                       <Link to="/mySubmissions">Submit</Link>
+                    ) : (
+                      <span> Submit</span>
+                    )}
                   </button>
                 </div>
                 <div className="  w-25 h-9 flex justify-center items-center hover:underline hover:cursor-pointer border border-white/40 rounded-2xl mb-1">
-                  Submission
+                  <Link to={`/mySubmissions`}>Submissions</Link>
                 </div>
               </div>
               <CodeEditor language={ref} setSourceCode={setSourceCode} />

@@ -40,12 +40,13 @@ export function ProblemDescription({
                 {difficulty}
               </span>
             </div>
-            <div className=" h-8 min-w-50 flex justify-start pl-1 items-center text-xl rounded-2xl border border-white/40">
+            <div className=" h-8 min-w-50 flex justify-center pl-1 items-center text-xl rounded-2xl border border-white/40">
               Tags: {tags?.map((x) => x + ",")}
             </div>
           </div>
-          <p className="w-190 mt-5 ml-3 font-medium  indent-20 text-balance whitespace-break-spaces break-keep text-xl border border-white/40 rounded h-20 ">
-            {description}
+          <p className="w-190 mt-5 ml-3 font-medium p-2 text-balance whitespace-break-spaces text-xl border border-white/40 rounded min-h ">
+            {description}  
+
           </p>
         </div>
 

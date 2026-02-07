@@ -1,5 +1,4 @@
 import Editor from "@monaco-editor/react";
-import { useRef } from "react";
 const path = {
   javascript: "// write javascript",
   java: "// write java code",
@@ -19,7 +18,6 @@ export function CodeEditor({
    
       <Editor
         onChange={(value) => {
-          // if (source_code.current)
              setSourceCode(value as string);
         }}
         key={language}
