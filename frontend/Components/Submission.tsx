@@ -9,6 +9,15 @@ export interface test {
   input: string;
   output: string;
 }
+const languageId = {
+  java: 91,
+  javascript: 102,
+  c: 110,
+  cpp: 105,
+} as const;
+
+export type langtype = keyof typeof languageId;
+
 export interface probDetails {
   title: string;
   description: string;
@@ -18,18 +27,14 @@ export interface probDetails {
   memoryLimit: number;
   test: test[];
 }
-const languageId = {
-  java: 91,
-  javascript: 102,
-  c: 110,
-  cpp: 105,
-};
+
 export function Submission() {
   const { problemId } = useParams();
   const [submit, setSubmit] = useState(false);
-  const [ref, setRef] = useState("");
+  const [ref, setRef] = useState<langtype>("cpp");
   const [sourceCode, setSourceCode] = useState("");
   const [data, setData] = useState<probDetails | null>(null);
+
   useEffect(() => {
     async function getResult() {
       const result = await axios.get(
@@ -46,6 +51,30 @@ export function Submission() {
       setSubmit(false);
       return;
     }
+    try {
+      async function submit() {
+        const result = await axios.post(
+          `http://localhost:3000/submit/submission/${problemId}`,
+          JSON.stringify({
+            language_id: `${languageId[ref]}`,
+            code: sourceCode,
+            memory: data?.memoryLimit,
+            runtime: data?.timeLimit,
+          }),
+          {
+            withCredentials: true,
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhMDI2NGYzOC03Mzk2LTQ5NGUtOTRjZS0yNDY1NGJhZDAwOGEiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NzA1NjQ4MzUsImV4cCI6MTc3MDU2NzgzNX0.jzzNfUcphF1iWYYVNGx2ES12wu47t-YchFcPGGOGwvo",
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+            },
+          },
+        );
+        console.table(result.data);
+      }
+       submit();
+    } catch (e) {}
 
     setSubmit(true);
     console.log(sourceCode);
@@ -84,7 +113,7 @@ export function Submission() {
                     className="border border-white/40 rounded-xl  w-20 h-8 hover:h-9 hover:w-22 hover:transition delay-100 duration-100 ease-in-out hover:cursor-pointer bg-red-600"
                   >
                     {submit ? (
-                       <Link to="/mySubmissions">Submit</Link>
+                      <Link to="/mySubmissions">Submit</Link>
                     ) : (
                       <span> Submit</span>
                     )}

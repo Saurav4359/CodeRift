@@ -1,16 +1,16 @@
 import { useRef } from "react";
-
- 
-
-export function Option({ setRef }: {setRef : (value : string)=> void}) {
+import type { langtype } from "./Submission";
+type Props = {
+  setRef: React.Dispatch<React.SetStateAction<"java" | "javascript" | "c" | "cpp">>;
+};
+export function Option({ setRef }: Props ) {
   const langRef = useRef<HTMLSelectElement | null>(null);
-  if (langRef.current) setRef(langRef.current.value);
+  if (langRef.current) setRef(langRef.current.value as langtype);
   return (
     <>
       <select
         onChange={() => {
-          if(langRef.current)
-          setRef(langRef.current?.value);
+          if (langRef.current) setRef(langRef.current?.value as langtype);
         }}
         ref={langRef}
         name=""

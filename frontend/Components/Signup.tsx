@@ -15,7 +15,7 @@ export function Signup() {
 
     
        <div className="flex my-35 mx-100 absolute"> 
-        <div className="bg-white/90 backdrop-blur-xs backdrop-blur-2xl h-150 w-180 rounded-2xl p-2 border-solid border-black/60 border ">
+        <div className="bg-white/90 backdrop-blur-xs   h-150 w-180 rounded-2xl p-2 border-solid border-black/60 border ">
           <div className=" h-48 border-black ">
             <div className="h-11 w-full flex justify-between items-center ">
               <div className=" text-xl  h-10 w-50 flex justify-center items-center ml-10 pointer-events-none ">
