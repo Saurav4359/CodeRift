@@ -4,7 +4,6 @@ import { CodeEditor } from "../pages/Editor";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 export interface test {
   input: string;
   output: string;
@@ -67,13 +66,14 @@ export function Submission() {
               Authorization:
                 "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhMDI2NGYzOC03Mzk2LTQ5NGUtOTRjZS0yNDY1NGJhZDAwOGEiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NzA1NjQ4MzUsImV4cCI6MTc3MDU2NzgzNX0.jzzNfUcphF1iWYYVNGx2ES12wu47t-YchFcPGGOGwvo",
               "Content-Type": "application/json",
-              "Accept": "application/json",
+              Accept: "application/json",
             },
           },
         );
+        
         console.table(result.data);
       }
-       submit();
+      submit();
     } catch (e) {}
 
     setSubmit(true);
@@ -119,8 +119,8 @@ export function Submission() {
                     )}
                   </button>
                 </div>
-                <div className="  w-25 h-9 flex justify-center items-center hover:underline hover:cursor-pointer border border-white/40 rounded-2xl mb-1">
-                  <Link to={`/mySubmissions`}>Submissions</Link>
+                <div className="  w-27 h-9 flex justify-center items-center hover:underline hover:cursor-pointer border border-white/40 rounded-2xl mb-1">
+                  <Link to={`/mySubmissions/`}>Submissions</Link>
                 </div>
               </div>
               <CodeEditor language={ref} setSourceCode={setSourceCode} />
