@@ -15,7 +15,6 @@ import {
 } from "../utils/services";
 import type { AdminReq } from "../Middlewares/AuthMiddleware";
 import { UploadTest } from "../modules/Supabase/uploadFile";
-import { submitCode } from "../modules/judge/execution";
 import { AddQueue } from "../modules/queue/queue";
 import { DownloadFile } from "../modules/Supabase/downloadFile";
 
@@ -134,7 +133,7 @@ export const Problems = async (req: Request, res: Response) => {
   }
 
   try {
-    await prisma.problem.create({
+   const result = await prisma.problem.create({
       data: {
         title: data.title,
         description: data.description,
@@ -146,7 +145,7 @@ export const Problems = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(201).json({ success: true, message: "Problem uploaded" });
+    res.status(201).json({ success: true, message: "Problem uploaded" , problemId : result.id});
   } catch (e) {
     res.status(500).json({ error: "Internal Error " });
   }
