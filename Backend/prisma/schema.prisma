@@ -78,11 +78,11 @@ model hidden_testcases {
 
 enum STATUS {
   PENDING
-  RUNNING
   AC
-  WA
+  FAILED
   TLE
   RE
+  MLE
 }
  
 model submission {

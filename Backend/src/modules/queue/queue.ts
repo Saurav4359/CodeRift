@@ -7,7 +7,10 @@ const queue = new Queue("Code", {
 });
 
 export interface job {
-  userId: string
+  submissionId: string;
+  userId: string;
+  time: number;
+  memory: number;
   language_id: string;
   source_code: string;
   stdin: string;
@@ -16,6 +19,6 @@ export interface job {
 export async function AddQueue(data: job) {
   await queue.add(`${data.problemId}`, data);
   console.log("Job added to queue");
-  await queue.close();
+  // await queue.close();
 }
-
+ 
