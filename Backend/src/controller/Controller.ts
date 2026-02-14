@@ -15,7 +15,7 @@ import {
 } from "../utils/services";
 import type { AdminReq } from "../Middlewares/AuthMiddleware";
 import { UploadTest } from "../modules/Supabase/uploadFile";
-import { AddQueue, Ae } from "../modules/queue/queue";
+import { AddQueue } from "../modules/queue/queue";
 import { DownloadFile } from "../modules/Supabase/downloadFile";
 
 export const Signup = async (req: Request, res: Response) => {
