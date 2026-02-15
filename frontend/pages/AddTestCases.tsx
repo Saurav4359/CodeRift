@@ -21,8 +21,8 @@ export function AddTestCases() {
       const result = await axios.post(
         `${BACKEND_URL}/submit/visibletestcase/${newProblemId}`,
         {
-          input: (Input),
-          output: (Output),
+          input: Input,
+          output: Output,
         },
         {
           headers: {
@@ -34,6 +34,7 @@ export function AddTestCases() {
       );
       if (result.data) alert("TestCase Added");
       else alert("TestCase failed to add");
+      window.location.reload();
     }
     addtest();
   }

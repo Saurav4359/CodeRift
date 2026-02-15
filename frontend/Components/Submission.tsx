@@ -31,7 +31,6 @@ export interface probDetails {
 
 export function Submission() {
   const { problemId } = useParams();
-  const [submit, setSubmit] = useState(false);
   const [ref, setRef] = useState<langtype>("cpp");
   const [sourceCode, setSourceCode] = useState("");
   const [data, setData] = useState<probDetails | null>(null);
@@ -49,7 +48,6 @@ export function Submission() {
   function submitCode() {
     if (!sourceCode || !sourceCode.trim()) {
       alert("Write your code");
-      setSubmit(false);
       return;
     }
     try {
@@ -58,9 +56,9 @@ export function Submission() {
         console.log(2);
         const result = await axios.post(
           `${BACKEND_URL}/submit/submission/${problemId}`,
-           {
+          {
             language_id: `${languageId[ref]}`,
-            code:  (sourceCode),
+            code: sourceCode,
             memory: data?.memoryLimit,
             runtime: data?.timeLimit,
           },
@@ -79,8 +77,6 @@ export function Submission() {
       }
       submit();
     } catch (e) {}
-
-    setSubmit(true);
     console.log(sourceCode);
   }
 
@@ -116,11 +112,7 @@ export function Submission() {
                     onClick={submitCode}
                     className="border border-white/40 rounded-xl  w-20 h-8 hover:h-9 hover:w-22 hover:transition delay-100 duration-100 ease-in-out hover:cursor-pointer bg-red-600"
                   >
-                    {submit ? (
-                      <Link to="/mySubmissions">Submit</Link>
-                    ) : (
-                      <span> Submit</span>
-                    )}
+                    <Link to="/mySubmissions">Submit</Link>
                   </button>
                 </div>
                 <div className="  w-27 h-9 flex justify-center items-center hover:underline hover:cursor-pointer border border-white/40 rounded-2xl mb-1">
