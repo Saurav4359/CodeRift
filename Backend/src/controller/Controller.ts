@@ -6,7 +6,6 @@ import {
   submissiontype,
   testcases,
 } from "../types/types";
-import crypto from "crypto";
 import { prisma } from "../config/db";
 import {
   ComparePassword,
@@ -89,28 +88,9 @@ export const Signin = async (req: Request, res: Response) => {
       userId: user.id,
       role: user.role,
     });
-    const refresh = crypto.randomBytes(32).toString("hex");
-    const refreshToken = crypto
-      .createHash("sha256")
-      .update(refresh)
-      .digest("hex");
 
     await prisma.refreshToken.deleteMany({ where: { userId: user.id } });
-    await prisma.refreshToken.create({
-      data: {
-        userId: user.id,
-        role: user.role,
-        token: refreshToken,
-        expiresAt: new Date(Date.now() + 7 * 24 * 3600 * 1000),
-      },
-    });
-    res.cookie("refresh", refresh, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "none",
-      path: "/",
-      maxAge: 7 * 24 * 3600 * 1000,
-    });
+
     res.status(201).json({
       success: true,
       accessToken: accessToken,
