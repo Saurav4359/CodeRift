@@ -44,7 +44,7 @@ export function Submission() {
     }
 
     getResult();
-  }, []);
+  }, [problemId]);
   function submitCode() {
     if (!sourceCode || !sourceCode.trim()) {
       alert("Write your code");
