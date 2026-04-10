@@ -1,5 +1,6 @@
 {
    "scripts": {
+      "worker": "bun run ./src/modules/worker/worker.ts",
       "dev": "bun run ./src/app.ts"
    },
    "name": "backend",

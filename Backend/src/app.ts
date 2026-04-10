@@ -6,6 +6,7 @@ import {
   getMySubmission,
   getProblemDescription,
   getProblemDetails,
+  getServerRunning,
   hiddenTestcases,
   Problems,
   Signin,
@@ -25,8 +26,8 @@ app.use(cors({ origin: ["http://localhost:5174", "http://localhost:5173"] , cred
 
 const router = express.Router();
 
+app.get("/",getServerRunning);
 app.use("/auth", router);
-
 router.post("/signup", Signup);
 router.post("/login", Signin);
 

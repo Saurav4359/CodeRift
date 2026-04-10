@@ -17,6 +17,13 @@ import { UploadTest } from "../modules/Supabase/uploadFile";
 import { AddQueue } from "../modules/queue/queue";
 import { DownloadFile } from "../modules/Supabase/downloadFile";
 
+
+export const getServerRunning = (req: Request, res : Response)=> {
+  return res.json({
+    success : true ,
+    message : "Server is running"
+  })
+}
 export const Signup = async (req: Request, res: Response) => {
   const { success, data, error } = signup.safeParse(req.body);
   if (!success) {
