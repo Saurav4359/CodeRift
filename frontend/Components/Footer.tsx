@@ -1,11 +1,24 @@
 export function Footer() {
   return (
     <>
-      <footer className=" pt-21 pl-5 h-30 w-full -bg-linear-0 from-[#020202] to-[#1d1d1d] border-t border-white/20 absolute text-white/90 ">
-        © All rights reserved. Made with ❤️ by Saurav.
+      <footer
+        className="w-full font-serif border-t border-white/20 
+                   text-white/80 text-sm 
+                   py-6 px-6 bg-linear-to-bl from-[#0a0a0a] to-[#080808]"
+      >
+        <div className="flex justify-between items-center">
+  <p className="hover:text-white cursor-pointer transition">© 2026 CodeRift. Made with ❤️ by Saurav.</p>
+
+  <div className="flex gap-6">
+    <span className="hover:text-white cursor-pointer transition">Terms</span>
+    <span className="hover:text-white cursor-pointer transition">Privacy</span>
+    <span className="hover:text-white cursor-pointer transition">Careers</span>
+    <span className="hover:text-white cursor-pointer transition">Contact</span>
+  </div>
+</div>
       </footer>
     </>
   );
 }
 
-//  bg-linear-to-bl from-[#0a0a0a] to-[#080808]
+ 
