@@ -8,7 +8,7 @@ interface probDetails {
 export function ProblemBar({ index, title, difficulty, tags }: probDetails) {
   return (
     <>
-      <div className="h-12 w-350 bg-gray-400/20 rounded-2xl flex justify-evenly items-center gap-100 text-2xl text-white font-sans hover:text-white/50 hover:cursor-pointer">
+      <div className=" font-serif text-xl h-12 w-350 bg-gray-400/15 rounded-2xl flex justify-evenly items-center gap-100  text-white   hover:text-gray-100/70 hover:cursor-pointer hover:bg-gray-400/20 hover:backdrop-blur-xs transition">
         <div>
           <div className=" h-8 w-110 flex justify-start items-center hover:underline ">
             <span className="mr-1">{index + 1 + "."}</span>

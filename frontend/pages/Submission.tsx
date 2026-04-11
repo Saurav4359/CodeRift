@@ -83,7 +83,7 @@ export function Submission() {
   if (!data)
     return (
       <div className="  h-screen w-screen flex justify-center items-center">
-        <p className="text-white text-3xl ">Loading ...</p>
+        <p className="text-white text-3xl "><div className="w-10 h-10 border-4 border-gray-300 border-t-sky-500 rounded-full animate-spin"></div></p>
       </div>
     );
   return (
@@ -110,7 +110,7 @@ export function Submission() {
                 <div className="  w-25 h-10 flex justify-center items-center ">
                   <button
                     onClick={submitCode}
-                    className="border border-white/40 rounded-xl  w-20 h-8 hover:h-9 hover:w-22 hover:transition delay-100 duration-100 ease-in-out hover:cursor-pointer bg-red-600"
+                    className="border border-white rounded-xl  w-20 h-8 transition bg-red-400/90 hover:bg-red-500/70"
                   >
                     <Link to="/mySubmissions">Submit</Link>
                   </button>
